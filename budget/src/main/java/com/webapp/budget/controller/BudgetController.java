@@ -2,20 +2,23 @@ package com.webapp.budget.controller;
 
 import java.util.List;
 
+
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
 import com.webapp.budget.exception.BudgetNotFoundException;
 import com.webapp.budget.helper.BudgetHelper;
 import com.webapp.budget.model.Budget;
 import com.webapp.budget.model.BudgetRepository;
 
-@RestController
+@Controller
 public class BudgetController {
 	
 	
@@ -26,14 +29,18 @@ public class BudgetController {
 	}
 	
 	
-	@GetMapping("/budget")
-	List<Budget> all() { 
-		return repo.findAll();
+	@GetMapping("/budgets")
+	String all(Model model) { 
+		List<Budget> budgets = (List<Budget>) repo.findAll();
+		model.addAttribute("budgets", budgets);
+		return "budgets";
 	}
 	
 	@PostMapping("/budget")
-	Budget newBudget(@RequestBody Budget newBudget) { 
-		return repo.save(newBudget);
+	String newBudget(@RequestBody Budget newBudget, Model model) { 
+		Budget budget = repo.save(newBudget);
+		model.addAttribute("budget", budget);
+		return "budget";
 	}
 	
 	@GetMapping("/budget/{id}")

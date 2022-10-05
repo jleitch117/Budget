@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<title>Budgets</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th> Budget </th>
+            <th> Holder </th>
+        </tr>
+    </thead>
+    <tbody>
+	<tr th:if="${budgets.empty}">
+            <td colspan="2"> No Budgets Available </td>
+        </tr>
+        <tr th:each="budget : ${budgets}">
+            <td><span th:text="${budget.name}"> Name </span></td>
+            <td><span th:text="${budget.income}"> Income </span></td>
+            <td><span th:text="${budget.expenses}"> Income </span></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

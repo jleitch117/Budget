@@ -12,7 +12,7 @@ public class Budget {
 	private double income;
 	private double expenses;
 	
-	Budget() {}
+	public Budget() {}
 	
 	public Budget( String name, double income, double expenses){
 		this.setExpenses(expenses);
