@@ -13,13 +13,13 @@
         </tr>
     </thead>
     <tbody>
-	<tr th:if="${budgets.empty}">
+		<tr th:if="${budgets.empty}">
             <td colspan="2"> No Budgets Available </td>
         </tr>
         <tr th:each="budget : ${budgets}">
             <td><span th:text="${budget.name}"> Name </span></td>
             <td><span th:text="${budget.income}"> Income </span></td>
-            <td><span th:text="${budget.expenses}"> Income </span></td>
+            <td><span th:text="${budget.expenses}"> Expenses </span></td>
         </tr>
     </tbody>
 </table>

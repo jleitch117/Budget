@@ -2,9 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-	<title>Budget</title>
+	<title>Budgets</title>
 </head>
-<body>
-	<b th:text="${budgets}"></b>
-</body>
-</html>
+<form action="#" th:action="@{/budgets/save}" th:object="${form}"
+  method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+        <table>
+            <thead>
+                <tr>
+                    <th> Budget</th>
+                    <th> Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="budget, itemStat : *{budgets}">
+                    <td><input th:field="*{budgets[__${itemStat.index}__].name}" /></td>
+                    <td><input th:field="*{budgets[__${itemStat.index}__].income}" /></td>
+                    <td><input th:field="*{budgets[__${itemStat.index}__].expenses}" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>

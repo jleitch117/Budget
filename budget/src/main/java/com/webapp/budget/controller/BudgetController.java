@@ -17,6 +17,7 @@ import com.webapp.budget.exception.BudgetNotFoundException;
 import com.webapp.budget.helper.BudgetHelper;
 import com.webapp.budget.model.Budget;
 import com.webapp.budget.model.BudgetRepository;
+import com.webapp.budget.model.BudgetWrapper;
 
 @Controller
 public class BudgetController {
@@ -36,17 +37,26 @@ public class BudgetController {
 		return "budgets";
 	}
 	
+	@GetMapping("/budget")
+	String createBudget(Model model) {
+		BudgetWrapper budgetForm = new BudgetWrapper();
+		budgetForm.addBudget(new Budget());
+		model.addAttribute("form", budgetForm);
+		return "budget";
+	}
+	
 	@PostMapping("/budget")
 	String newBudget(@RequestBody Budget newBudget, Model model) { 
 		Budget budget = repo.save(newBudget);
 		model.addAttribute("budget", budget);
-		return "budget";
+		return "budgets";
 	}
 	
 	@GetMapping("/budget/{id}")
 	Budget one(@PathVariable Long id) {
 		return repo.findById(id)
 				.orElseThrow(() -> new BudgetNotFoundException(id));
+		
 	}
 	
 	@PutMapping("/budget/{id}")
